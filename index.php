@@ -12,6 +12,7 @@
     // print_r($mods);
     $coords = $mods['odivino_google_maps_coords'];
     $api_key = $mods['odivino_google_maps_api_key'];
+    $map_id = $mods['odivino_google_maps_map_id'];
     // die();
     // $value  = esc_attr($coords);
     return "
@@ -28,16 +29,19 @@
             zoom: 18,
             center: location,
             zoomControl: true,
-            scaleControl: true
+            scaleControl: true,
+            mapId:'$map_id',
         });
-        var marker = new google.maps.Marker({
+        var marker = new google.maps.marker.AdvancedMarkerElement({
+            map: map,
             position: location,
-            map: map
+            title: 'Odivino',
+
         });
     }
 </script>
     <script async defer
-    src='https://maps.googleapis.com/maps/api/js?key=$api_key&callback=initMap'>
+    src='https://maps.googleapis.com/maps/api/js?key=$api_key&callback=initMap&loading=async&libraries=marker'>
     </script>";
 }
 add_shortcode('odivino-google-map', 'shortcode_google_map');
